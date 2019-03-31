@@ -15,7 +15,7 @@ public class SmtpemailService extends AbstractEmailService{
 	
 	@Override
 	public void sendEmail(SimpleMailMessage msg) {
-		LOG.info("Simulando envio de email");
+		LOG.info("Enviando de email");
 		mailSender.send(msg);
 		LOG.info("Email Enviado!");
 	}
