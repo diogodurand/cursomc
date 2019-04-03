@@ -19,6 +19,7 @@ import com.diogodurand.cursomc.domain.PagamentoComCartao;
 import com.diogodurand.cursomc.domain.Pedido;
 import com.diogodurand.cursomc.domain.Produto;
 import com.diogodurand.cursomc.domain.enums.EstadoPagamento;
+import com.diogodurand.cursomc.domain.enums.Perfil;
 import com.diogodurand.cursomc.domain.enums.TipoCliente;
 import com.diogodurand.cursomc.repositorioes.CategoriaRepository;
 import com.diogodurand.cursomc.repositorioes.CidadeRepository;
@@ -128,13 +129,18 @@ public class DBService {
 		Cliente cli1 = new Cliente(null, "Maria", "diogodurandcursos@gmail.com", "12312472655", TipoCliente.PESSOAFISICA, pe.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("87876721","98787641"));
 		
+		Cliente cli2 = new Cliente(null, "Ana", "xxdiogoventuraxx@gmail.com", "80923355081", TipoCliente.PESSOAFISICA, pe.encode("123"));
+		cli2.getTelefones().addAll(Arrays.asList("87236721","98783241"));
+		cli2.addPerfil(Perfil.ADMIN);
+		
 		Endereco e1 = new Endereco(null, "Rua rua", "900", "complemento", "bairro", "50721110", cli1, c1);
 		Endereco e2 = new Endereco(null, "Rua avenida", "901", "complemento", "bairro", "18273661", cli1, c2);
+		Endereco e3 = new Endereco(null, "Rua blablabla", "901", null, "bairro", "18273661", cli2, c2);
 		
 		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
-		
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2, e3));
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
 		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
